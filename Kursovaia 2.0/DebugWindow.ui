@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DebugWindowClass</class>
+ <widget class="QMainWindow" name="DebugWindowClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Окно отладки</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>10</y>
+      <width>121</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>АВЛ-дерево</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>340</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Хэш-таблица</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="table_HT_Widget">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>371</y>
+      <width>1251</width>
+      <height>311</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>Марка,Модель</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Статус ячейки</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Госномер</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Номер телефона</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Дата</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QTextEdit" name="text_AVLEdit">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>39</y>
+      <width>1241</width>
+      <height>291</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
