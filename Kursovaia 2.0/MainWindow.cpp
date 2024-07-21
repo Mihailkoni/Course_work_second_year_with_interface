@@ -19,7 +19,6 @@
 #include "AVL_Tree.h"
 #include "checking _input _data.h"
 #include "DebugWindow.h"
-
 #include <iostream>
 #include <clocale>
 #include <list>
@@ -293,13 +292,60 @@ void MainWindow::Walk_Tree_To_File(AVL_Node* root, QTextStream& writestream) {
     }
 }
 
+
+
+std::string capitalizePart(const std::string& part) {
+    std::string result = part;
+    result[0] = std::toupper(result[0]);
+    std::transform(result.begin() + 1, result.end(), result.begin() + 1, ::tolower);
+    return result;
+}
+
+// Функция для преобразования слова с дефисами в правильный формат
+std::string formatWord(const std::string& word) {
+    std::ostringstream formattedWord;
+    std::istringstream wordStream(word);
+    std::string part;
+
+    bool firstPart = true;
+    while (std::getline(wordStream, part, '-')) {
+        if (!firstPart) {
+            formattedWord << '-';
+        }
+        formattedWord << capitalizePart(part);
+        firstPart = false;
+    }
+
+    return formattedWord.str();
+}
+
+// Функция для преобразования строки в правильный формат
+std::string formatCarMakeAndModel(const std::string& input) {
+    std::istringstream iss(input);
+    std::ostringstream oss;
+    std::string word;
+    bool firstWord = true;
+
+    while (iss >> word) {
+        if (!firstWord) {
+            oss << " ";
+        }
+        oss << formatWord(word);
+        firstWord = false;
+    }
+
+    return oss.str();
+}
+
+
+
 void MainWindow::on_addButton_clicked()
 {
     if (ui->Add_HT_Size->isEnabled() == false) {
         count_Of_file = ui->Add_HT_Size->value();
         string Gos_number = ui->lineEditGosNumber->text().toStdString();
         string Phone_number = ui->lineEditPhoneNumber->text().toStdString();
-        string Brand_and_model = ui->lineEditCarModel->text().toStdString();
+        string Brand_and_model_in = ui->lineEditCarModel->text().toStdString();
         int day = ui->dateEdit->date().day();
         int month = ui->dateEdit->date().month();
         int year = ui->dateEdit->date().year();
@@ -319,9 +365,10 @@ void MainWindow::on_addButton_clicked()
             date_str = to_string(day) + "." + to_string(month) + "." + to_string(year);
         }
 
-        int status = CheckCorrectField(Gos_number, Phone_number, Brand_and_model, date_str, date);
+        int status = CheckCorrectField(Gos_number, Phone_number, Brand_and_model_in, date_str, date);
         if (status == 1) {
             State_Number state = State_number_to_string(Gos_number);
+            string Brand_and_model = formatCarMakeAndModel(Brand_and_model_in);
             Car brand_model = Brand_and_model_to_string(Brand_and_model);
             long long phone = stoll(Phone_number);
             if (add_for_one_bool(root, state.letters, state.number, state.region, phone, brand_model.brand, brand_model.model, day, month, year, count_Of_file) == true) {
@@ -434,6 +481,7 @@ void MainWindow::on_debugButton_clicked()
 {
     if (ui->Add_HT_Size->isEnabled() == false) {
         emit ToDebugSignal(root);
+        DebugWin->setFixedSize(1280, 720);
         DebugWin->show();
     }
     else {

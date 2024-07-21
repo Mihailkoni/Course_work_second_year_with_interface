@@ -9,7 +9,6 @@ using namespace std;
 
 
 
-
 class Hash_Table {
 private:
     const int k1 = 1; // константа для квадратичного поиска
@@ -88,6 +87,7 @@ public:
 
         int index = hash_middle_square(node); // считаем хэш
         int i = 0; // кол-во попыток разрешить коллизию
+        node->first_hash_key = index;
 
         if (table[index].status != ONE) { // первая проверка
             table[index].key = node;

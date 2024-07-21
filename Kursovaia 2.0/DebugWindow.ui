@@ -74,6 +74,11 @@
       <string>Дата</string>
      </property>
     </column>
+    <column>
+     <property name="text">
+      <string>Исходное хэш-значение</string>
+     </property>
+    </column>
    </widget>
    <widget class="QTextEdit" name="text_AVLEdit">
     <property name="geometry">

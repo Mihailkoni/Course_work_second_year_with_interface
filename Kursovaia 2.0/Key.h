@@ -11,4 +11,5 @@ struct Key {
 	long long phone_num; // номер телефона
 	Car car; // марка и модель
 	Date date; // дата
+	int first_hash_key; // начальный хэш-ключа
 };

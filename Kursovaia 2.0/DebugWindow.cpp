@@ -66,7 +66,7 @@ void DebugWindow::print_debug(AVL_Node* root, int h, QTextEdit* textEdit, bool i
 }
 
 
-void DebugWindow::addRow_d(const QString& brand_model,const QString cell_status,const QString& state_num,const QString& phone_num,const QString& date) {
+void DebugWindow::addRow_d(const QString& brand_model,const QString cell_status,const QString& state_num,const QString& phone_num,const QString& date,const QString& first_hash) {
     ui->table_HT_Widget->insertRow(ui->table_HT_Widget->rowCount());
     int j = ui->table_HT_Widget->rowCount() - 1;
 
@@ -92,20 +92,27 @@ void DebugWindow::addRow_d(const QString& brand_model,const QString cell_status,
         QTableWidgetItem* item_date = new QTableWidgetItem(date);
         ui->table_HT_Widget->setItem(j, 4, item_date);
     }
+    
+    if (!first_hash.isEmpty()) {
+        QTableWidgetItem* item_first_hash = new QTableWidgetItem(first_hash);
+        ui->table_HT_Widget->setItem(j, 5, item_first_hash);
+    }
 
 }
 
 void DebugWindow::print_HT(Hash_Table* HT, const std::string& brand_model) {
     for (int i = 0; i < HT->size_HT(); i++) {
         Hash_Table_Node node = HT->table[i];
+        
         if (node.status == ONE) {
-            DebugWindow::addRow_d("", QString::fromStdString(Collection_state_number_debug(node.key->state_num)),"ONE", QString::fromStdString(to_string(node.key->phone_num)), QString::fromStdString(Collection_date_debug(node.key->date)));
+            DebugWindow::addRow_d(QString::fromStdString(to_string(i)), QString::fromStdString(Collection_state_number_debug(node.key->state_num)),"ONE", QString::fromStdString(to_string(node.key->phone_num)), QString::fromStdString(Collection_date_debug(node.key->date)), QString::fromStdString(to_string(node.key->first_hash_key)));
+            
         }
         else if(node.status == ZERO){
-            DebugWindow::addRow_d("","ZERO", "", "", "");
+            DebugWindow::addRow_d(QString::fromStdString(to_string(i)), "ZERO", "", "", "", "");
         }
         else {
-            DebugWindow::addRow_d("", "TWO", "", "", "");
+            DebugWindow::addRow_d(QString::fromStdString(to_string(i)), "TWO", "", "", "","");
         }
     }
 }
@@ -117,7 +124,7 @@ void DebugWindow::print_HT_in_tree(AVL_Node* root) {
         print_HT_in_tree(root->right);
         std::string brand_model_str = root->key->car.brand + " " + root->key->car.model;
         QString brand_model_Q = QString::fromStdString(root->key->car.brand + " " + root->key->car.model);
-        DebugWindow::addRow_d(brand_model_Q, "", "", "", "");
+        DebugWindow::addRow_d(brand_model_Q, "", "", "", "","");
         print_HT(root->HT, brand_model_str);
     }
 }

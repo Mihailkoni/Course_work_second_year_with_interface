@@ -19,7 +19,7 @@ public:
 	~DebugWindow();
 	void print_debug(AVL_Node* root, int h, QTextEdit* textEdit, bool isRightChild);
 	void print_HT_in_tree(AVL_Node* root);
-	void addRow_d(const QString& brand_model,const QString cell_status, const QString& state_num, const QString& phone_num, const QString& date);
+	void addRow_d(const QString& brand_model,const QString cell_status, const QString& state_num, const QString& phone_num, const QString& date, const QString& first_hash);
 	void print_HT(Hash_Table* HT, const std::string& brand_model);
 public slots:
 	void debug_Signal(AVL_Node* root); // Публичный слот для получения указателя на корень дерева

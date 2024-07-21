@@ -117,9 +117,9 @@ bool add_to_tree(Key* key, AVL_Node*& p, bool& h, int max_table_size) {
         }
         return res;
     }
-    else {
-        // проверка на наличие в хеш-таблице и добавление, если нет
-        if (p->HT->search(key) == false) {
+    else if(p->key->car.brand == key->car.brand && p->key->car.model == key->car.model){
+        int s;
+        if (p->HT->search_with_steps(key,s) == false) {
             Key* key_for_HT = new Key();
             key_for_HT = key;
             p->HT->add(key_for_HT);
@@ -268,7 +268,6 @@ bool Delete_Bool(Key* key, AVL_Node*& root, bool& h) {
 
     // Если ключи совпадают, но элемент не найден в хеш-таблице
     if ((root->key->car.brand == key->car.brand) && (root->key->car.model == key->car.model) && !(root->HT->search(key))) {
-        cout << "The line does not exist" << "\n";
         return false;
     }
 
@@ -413,7 +412,7 @@ void read_from_file(AVL_Node*& root,const string& filename, int max_table_size){
         
 
         
-        
+ 
         Key* key = new Key();
 
         key->state_num.letters = first_state_letter + second_state_letters;
